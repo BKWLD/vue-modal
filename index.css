@@ -1,0 +1,71 @@
+.modal[data-v-6de5ab34] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+}
+.background[data-v-6de5ab34] {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: rgba(255,0,0,0.8);
+}
+.background-hitbox[data-v-6de5ab34] {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.slot[data-v-6de5ab34] {
+  border: 10px solid #00f;
+  position: relative;
+}
+.slot.type-standard[data-v-6de5ab34] {
+  background: #fff;
+  width: 100%;
+  max-width: 600px;
+  padding: 90px;
+  text-align: center;
+}
+.slot.v-enter-active[data-v-6de5ab34] {
+  transition: opacity 0.3s, transform 1.5s ease-out-quint;
+}
+.slot.v-enter[data-v-6de5ab34] {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.slot.v-leave-active[data-v-6de5ab34] {
+  transition: opacity 0.5s, transform 0.5s ease-in;
+}
+.slot.v-leave-to[data-v-6de5ab34] {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.contents[data-v-6de5ab34] {
+  overflow: auto;
+}
+.close[data-v-6de5ab34] {
+  color: #f00;
+  position: absolute;
+  fluid: right, 50, 10;
+  fluid: top, 50, 10;
+  transition: color 0.3s;
+}
+.close .icon[data-v-6de5ab34] {
+  font-size: 20px;
+  border: 1px solid #f00;
+}
+.close[data-v-6de5ab34]:hover {
+  transition-duration: 0.1s;
+  color: #c00;
+}
+
