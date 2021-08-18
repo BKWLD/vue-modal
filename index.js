@@ -184,7 +184,6 @@ var external_body_scroll_lock_ = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/coffee-loader!./node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=coffee&
 
-undefined.import('~bukwild-stylus-library/index.styl');
 /* harmony default export */ var lib_vue_loader_options_indexvue_type_script_lang_coffee_ = ({
   name: 'VueModal',
   props: {
@@ -207,15 +206,13 @@ undefined.import('~bukwild-stylus-library/index.styl');
   },
   mounted: function () {
     Object(external_body_scroll_lock_["disableBodyScroll"])(this.$refs.scrollable);
-    return this.$nextTick(this.setupTrapFocus);
-  },
-  beforeDestroy: function () {
-    document.removeEventListener('keydown', this.onKeyDown);
-    return Object(external_body_scroll_lock_["enableBodyScroll"])(this.$refs.scrollable);
+    return setTimeout(this.setupTrapFocus, 0);
   },
   methods: {
     // Remove the modal
     close: function () {
+      document.removeEventListener('keydown', this.onKeyDown);
+      Object(external_body_scroll_lock_["enableBodyScroll"])(this.$refs.scrollable);
       return this.open = false;
     },
     // Remove it after the transition ends
@@ -228,11 +225,13 @@ undefined.import('~bukwild-stylus-library/index.styl');
       this.focusableElements = 'button, [href], input, [tabindex]:not([tabindex="-1"])';
       this.firstFocusableElement = this.modal.querySelectorAll(this.focusableElements)[0];
       this.focusableContent = this.modal.querySelectorAll(this.focusableElements);
-      this.lastFocusableElement = this.focusableContent[this.focusableContent.length - 1];
-      console.log(this.firstFocusableElement, this.focusableContent, this.lastFocusableElement);
-      document.addEventListener('keydown', this.onKeyDown); // focus the first one
+      this.lastFocusableElement = this.focusableContent[this.focusableContent.length - 1]; // if fodus elements found, then add listener
+      // and focus the first one
 
-      return this.firstFocusableElement.focus();
+      if (this.focusableContent.length) {
+        document.addEventListener('keydown', this.onKeyDown);
+        return this.firstFocusableElement.focus();
+      }
     },
     onKeyDown: function (e) {
       var isTabPressed;

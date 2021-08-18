@@ -16,7 +16,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  background: rgba(255,0,0,0.8);
+  background: rgba(128,128,128,0.8);
 }
 .background-hitbox[data-v-6de5ab34] {
   top: 0;
@@ -26,8 +26,40 @@
   position: absolute;
 }
 .slot[data-v-6de5ab34] {
-  border: 10px solid #00f;
   position: relative;
+}
+.slot.type-video[data-v-6de5ab34] {
+  background: #fff;
+  width: 100%;
+  max-width: 600px;
+}
+.slot.type-video .contents[data-v-6de5ab34] {
+  padding-top: 56.25%;
+  background: #fff;
+}
+.slot.type-video .close[data-v-6de5ab34] {
+  right: calc(0px + 0vw);
+  top: calc(-26.47887323943662px + -0.938967136150235vw);
+}
+@media (max-width: 375px) {
+.slot.type-video .close[data-v-6de5ab34] {
+    right: 0px;
+}
+}
+@media (min-width: 1440px) {
+.slot.type-video .close[data-v-6de5ab34] {
+    right: 0px;
+}
+}
+@media (max-width: 375px) {
+.slot.type-video .close[data-v-6de5ab34] {
+    top: -30px;
+}
+}
+@media (min-width: 1440px) {
+.slot.type-video .close[data-v-6de5ab34] {
+    top: -40px;
+}
 }
 .slot.type-standard[data-v-6de5ab34] {
   background: #fff;
@@ -37,7 +69,7 @@
   text-align: center;
 }
 .slot.v-enter-active[data-v-6de5ab34] {
-  transition: opacity 0.3s, transform 1.5s ease-out-quint;
+  transition: opacity 0.3s, transform 1.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 .slot.v-enter[data-v-6de5ab34] {
   opacity: 0;
@@ -54,18 +86,33 @@
   overflow: auto;
 }
 .close[data-v-6de5ab34] {
-  color: #f00;
+  color: #fff;
   position: absolute;
-  fluid: right, 50, 10;
-  fluid: top, 50, 10;
+  right: calc(-4.084507042253522px + 3.755868544600939vw);
+  top: calc(-4.084507042253522px + 3.755868544600939vw);
   transition: color 0.3s;
+}
+@media (max-width: 375px) {
+.close[data-v-6de5ab34] {
+    right: 10px;
+}
+}
+@media (min-width: 1440px) {
+.close[data-v-6de5ab34] {
+    right: 50px;
+}
+}
+@media (max-width: 375px) {
+.close[data-v-6de5ab34] {
+    top: 10px;
+}
+}
+@media (min-width: 1440px) {
+.close[data-v-6de5ab34] {
+    top: 50px;
+}
 }
 .close .icon[data-v-6de5ab34] {
   font-size: 20px;
-  border: 1px solid #f00;
-}
-.close[data-v-6de5ab34]:hover {
-  transition-duration: 0.1s;
-  color: #c00;
 }
 

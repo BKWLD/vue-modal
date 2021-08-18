@@ -28,7 +28,7 @@
 
 <script lang='coffee'>
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
-@import '~bukwild-stylus-library/index.styl'
+# 
 
 export default
 
@@ -50,16 +50,15 @@ export default
 
 	mounted: ->
 		disableBodyScroll @$refs.scrollable
-		@$nextTick @setupTrapFocus
-
-	beforeDestroy: ->
-		document.removeEventListener 'keydown', @onKeyDown
-		enableBodyScroll @$refs.scrollable
-
+		setTimeout @setupTrapFocus, 0
+		
 	methods:
 
 		# Remove the modal
-		close: -> @open = false
+		close: -> 
+			document.removeEventListener 'keydown', @onKeyDown
+			enableBodyScroll @$refs.scrollable
+			@open = false
 
 		# Remove it after the transition ends
 		remove: ->
@@ -73,11 +72,11 @@ export default
 			@focusableContent = @modal.querySelectorAll @focusableElements
 			@lastFocusableElement = @focusableContent[@focusableContent.length - 1]
 
-			console.log @firstFocusableElement, @focusableContent, @lastFocusableElement
-			document.addEventListener 'keydown', @onKeyDown
-
-			# focus the first one
-			@firstFocusableElement.focus()
+			# if fodus elements found, then add listener
+			# and focus the first one
+			if @focusableContent.length
+				document.addEventListener 'keydown', @onKeyDown
+				@firstFocusableElement.focus()
 
 		onKeyDown: (e) ->
 			isTabPressed = e.key == 'Tab' or e.keyCode == 9
@@ -96,6 +95,7 @@ export default
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <style lang='stylus' scoped>
+@import '~bukwild-stylus-library/index.styl'
 
 .modal
 	position fixed
@@ -116,7 +116,7 @@ export default
 	width 100%
 	height 100%
 	position absolute
-	background rgba(red, .8)
+	background rgba(grey, .8)
 
 // Captures clicks if enabled
 .background-hitbox
@@ -128,12 +128,24 @@ export default
 
 // The box the slot is rendered in
 .slot
-	border 10px solid blue
 
 	// Overlap the background
 	position relative
 
 	// Apply layout styling
+	&.type-video
+		background white
+		width 100%
+		max-width 600px
+
+		.contents
+			padding-top 56.25%
+			background white
+
+		.close
+			fluid right, 0, 0
+			fluid top, -40, -30
+
 	&.type-standard
 		background white
 		width 100%
@@ -158,20 +170,15 @@ export default
 
 // Close icon
 .close
-	color red
+	color white
 	position absolute
 	fluid right, 50, 10
 	fluid top, 50, 10
 
 	.icon
 		font-size 20px
-		border 1px solid red
 
 	// Slight hover
 	transition color .3s
-
-	&:hover
-		transition-duration .1s
-		color darken(red, 20%)
 
 </style>
