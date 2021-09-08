@@ -150,7 +150,6 @@ export default
 		background white
 		width 100%
 		max-width 600px
-		padding 90px
 		text-align center
 
 	// Slide in and up
