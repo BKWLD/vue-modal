@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "version": "npm run build && git add -A",
-    "postversion": "git push --follow-tags && yarn storybook:deploy"
+    "postversion": "git push --follow-tags"
   },
   "repository": {
     "type": "git",
