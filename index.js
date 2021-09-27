@@ -102,8 +102,8 @@ module.exports = require("body-scroll-lock");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6de5ab34_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6de5ab34_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6de5ab34_lang_stylus_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
@@ -115,7 +115,7 @@ module.exports = require("body-scroll-lock");
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/pug-plain-loader!./node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=6de5ab34&scoped=true&lang=pug&
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/pug-plain-loader!./node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=6de5ab34&lang=pug&
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -124,7 +124,7 @@ var render = function() {
     "div",
     {
       ref: "modal",
-      staticClass: "modal",
+      staticClass: "bvm-modal",
       attrs: {
         tabindex: "-1",
         role: "dialog",
@@ -134,11 +134,11 @@ var render = function() {
     },
     [
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
-        _vm.open ? _c("div", { staticClass: "background" }) : _vm._e()
+        _vm.open ? _c("div", { staticClass: "bvm-background" }) : _vm._e()
       ]),
       _vm.closeable
         ? _c("div", {
-            staticClass: "background-hitbox",
+            staticClass: "bvm-background-hitbox",
             on: { click: _vm.close }
           })
         : _vm._e(),
@@ -147,25 +147,29 @@ var render = function() {
         { attrs: { appear: "" }, on: { "after-leave": _vm.remove } },
         [
           _vm.open
-            ? _c("div", { staticClass: "slot", class: "type-" + _vm.type }, [
-                _vm.closeable
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "close",
-                        attrs: { "aria-label": "Close" },
-                        on: { click: _vm.close }
-                      },
-                      [_c("div", { staticClass: "icon-close" })]
-                    )
-                  : _vm._e(),
-                _c(
-                  "div",
-                  { ref: "scrollable", staticClass: "contents" },
-                  [_vm._t("default")],
-                  2
-                )
-              ])
+            ? _c(
+                "div",
+                { staticClass: "bvm-slot", class: "type-" + _vm.type },
+                [
+                  _vm.closeable
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "bvm-close",
+                          attrs: { "aria-label": "Close" },
+                          on: { click: _vm.close }
+                        },
+                        [_c("div", { staticClass: "icon-close" })]
+                      )
+                    : _vm._e(),
+                  _c(
+                    "div",
+                    { ref: "scrollable", staticClass: "bvm-contents" },
+                    [_vm._t("default")],
+                    2
+                  )
+                ]
+              )
             : _vm._e()
         ]
       )
@@ -177,7 +181,7 @@ var staticRenderFns = []
 render._withStripped = true
 
 
-// CONCATENATED MODULE: ./index.vue?vue&type=template&id=6de5ab34&scoped=true&lang=pug&
+// CONCATENATED MODULE: ./index.vue?vue&type=template&id=6de5ab34&lang=pug&
 
 // EXTERNAL MODULE: external "body-scroll-lock"
 var external_body_scroll_lock_ = __webpack_require__(0);
@@ -257,8 +261,8 @@ var external_body_scroll_lock_ = __webpack_require__(0);
 });
 // CONCATENATED MODULE: ./index.vue?vue&type=script&lang=coffee&
  /* harmony default export */ var indexvue_type_script_lang_coffee_ = (lib_vue_loader_options_indexvue_type_script_lang_coffee_); 
-// EXTERNAL MODULE: ./index.vue?vue&type=style&index=0&id=6de5ab34&lang=stylus&scoped=true&
-var indexvue_type_style_index_0_id_6de5ab34_lang_stylus_scoped_true_ = __webpack_require__(2);
+// EXTERNAL MODULE: ./index.vue?vue&type=style&index=0&lang=stylus&
+var indexvue_type_style_index_0_lang_stylus_ = __webpack_require__(2);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -375,7 +379,7 @@ var component = normalizeComponent(
   staticRenderFns,
   false,
   null,
-  "6de5ab34",
+  null,
   null
   
 )
