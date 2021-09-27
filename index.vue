@@ -1,23 +1,23 @@
 <template lang='pug'>
 
 //- Don't need aria hidden because this is a mount on body
-.modal(ref='modal' tabindex='-1' role='dialog' id='modal' aria-modal='true')
+.bvm-modal(ref='modal' tabindex='-1' role='dialog' id='modal' aria-modal='true')
 
 	//- Backdrop
-	transition(name='fade' appear): .background(v-if='open')
-	.background-hitbox(v-if='closeable' @click='close')
+	transition(name='fade' appear): .bvm-background(v-if='open')
+	.bvm-background-hitbox(v-if='closeable' @click='close')
 
 	//- Container of the slotted contnet
-	transition(appear @after-leave='remove'): .slot(
+	transition(appear @after-leave='remove'): .bvm-slot(
 		v-if='open'
 		:class='`type-${type}`')
 
 		//- Close icon
-		button.close(aria-label='Close' @click='close' v-if='closeable')
+		button.bvm-close(aria-label='Close' @click='close' v-if='closeable')
 			.icon-close
 
 		//- The flex-centered contents
-		.contents(ref='scrollable')
+		.bvm-contents(ref='scrollable')
 
 			//- Slotted in content
 			slot
@@ -94,10 +94,10 @@ export default
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-<style lang='stylus' scoped>
+<style lang='stylus'>
 @import '~bukwild-stylus-library/index.styl'
 
-.modal
+.bvm-modal
 	position fixed
 	top 0
 	left 0
@@ -110,7 +110,7 @@ export default
 	padding 50px
 
 // Background color
-.background
+.bvm-background
 	top 0
 	left 0
 	width 100%
@@ -119,7 +119,7 @@ export default
 	background rgba(grey, .8)
 
 // Captures clicks if enabled
-.background-hitbox
+.bvm-background-hitbox
 	top 0
 	left 0
 	width 100%
@@ -127,7 +127,7 @@ export default
 	position absolute
 
 // The box the slot is rendered in
-.slot
+.bvm-slot
 
 	// Overlap the background
 	position relative
@@ -164,11 +164,11 @@ export default
 		opacity 0
 		transform scale(0.9)
 
-.contents
+.bvm-contents
 	overflow auto
 
 // Close icon
-.close
+.bvm-close
 	color white
 	position absolute
 	fluid right, 50, 10
