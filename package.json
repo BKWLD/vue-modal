@@ -1,6 +1,6 @@
 {
   "name": "@bkwld/vue-modal",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Vue 2 modal wrapper with slotted content",
   "main": "index.js",
   "scripts": {
