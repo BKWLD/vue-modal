@@ -107,7 +107,7 @@ export default
 	display flex
 	align-items center
 	justify-content center
-	padding 50px
+	fluid padding, 50, 30
 
 // Background color
 .bvm-background
