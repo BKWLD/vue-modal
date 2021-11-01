@@ -35,12 +35,18 @@ export default
 	name: 'VueModal'
 
 	props:
+		
 		type:
 			type: String
 			default: 'compact'
+		
 		closeable:
 			type: Boolean
 			default: true
+		
+		removeOnClose:
+			type: Boolean
+			default: false
 
 	data: ->
 		open: true
@@ -58,10 +64,12 @@ export default
 		close: -> 
 			document.removeEventListener 'keydown', @onKeyDown
 			enableBodyScroll @$refs.scrollable
+			@$emit('close')
 			@open = false
 
 		# Remove it after the transition ends
 		remove: ->
+			if !@removeOnClose then return
 			@$destroy()
 			@$el.remove()
 

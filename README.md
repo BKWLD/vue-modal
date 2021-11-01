@@ -4,12 +4,14 @@ A component that renders a modal window with slotted content. Includes trapped t
 ## Props
 `closable`: prevent the user from closing the modal (like for an age gate)
 `type`: Default is standard, which is a generic modal
+`removeOnClose`: Wether or not the modal destroys itself on close. Defaluts to *false*
+
+## Events
+`close`: Emitted when the modal closes
 
 ## To-Do
-- video 
-- fix the styles, import stylus library, basic dried up styles for layout and functionality
-- document trap tab for ada
-
+- video support & document
+- document trap focus for acessibility
 
 ## Usage
 
