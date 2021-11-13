@@ -24,6 +24,7 @@ export mapping =
 	mediaAsset: 'blocks-media-asset'
 	simpleMarquee: 'blocks-simple-marquee'
 	spacer: 'blocks-spacer'
+	modalExamples: 'blocks-modal-examples'
 
 # Hard import marquee components so they don't get chunked
 import '~/components/blocks/simple-marquee'

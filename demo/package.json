@@ -16,6 +16,7 @@
 	"dependencies": {
 		"@bkwld/cloak": "^1.9.2",
 		"@bkwld/light-or-dark": "^1.0.1",
+		"@bkwld/vue-modal": "BKWLD/vue-modal#7313bd5",
 		"@nuxt/content": "1.14.0",
 		"nuxt": "^2.15.7",
 		"vue-balance-text": "^1.2.3",
