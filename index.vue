@@ -27,7 +27,7 @@
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
 <script lang='coffee'>
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 # 
 
 export default
@@ -63,7 +63,7 @@ export default
 		# Remove the modal
 		close: -> 
 			document.removeEventListener 'keydown', @onKeyDown
-			enableBodyScroll @$refs.scrollable
+			clearAllBodyScrollLocks()
 			@$emit('close')
 			@open = false
 

@@ -116,7 +116,7 @@ module.exports = require("body-scroll-lock");
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/pug-plain-loader!./node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=6de5ab34&lang=pug&
-var render = function () {
+var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -129,17 +129,17 @@ var render = function () {
         tabindex: "-1",
         role: "dialog",
         id: "modal",
-        "aria-modal": "true",
-      },
+        "aria-modal": "true"
+      }
     },
     [
       _c("transition", { attrs: { name: "fade", appear: "" } }, [
-        _vm.open ? _c("div", { staticClass: "bvm-background" }) : _vm._e(),
+        _vm.open ? _c("div", { staticClass: "bvm-background" }) : _vm._e()
       ]),
       _vm.closeable
         ? _c("div", {
             staticClass: "bvm-background-hitbox",
-            on: { click: _vm.close },
+            on: { click: _vm.close }
           })
         : _vm._e(),
       _c(
@@ -157,7 +157,7 @@ var render = function () {
                         {
                           staticClass: "bvm-close",
                           attrs: { "aria-label": "Close" },
-                          on: { click: _vm.close },
+                          on: { click: _vm.close }
                         },
                         [_c("div", { staticClass: "icon-close" })]
                       )
@@ -167,12 +167,12 @@ var render = function () {
                     { ref: "scrollable", staticClass: "bvm-contents" },
                     [_vm._t("default")],
                     2
-                  ),
+                  )
                 ]
               )
-            : _vm._e(),
+            : _vm._e()
         ]
-      ),
+      )
     ],
     1
   )
@@ -220,7 +220,7 @@ var external_body_scroll_lock_ = __webpack_require__(0);
     // Remove the modal
     close: function () {
       document.removeEventListener('keydown', this.onKeyDown);
-      Object(external_body_scroll_lock_["enableBodyScroll"])(this.$refs.scrollable);
+      Object(external_body_scroll_lock_["clearAllBodyScrollLocks"])();
       this.$emit('close');
       return this.open = false;
     },
