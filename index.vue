@@ -13,8 +13,8 @@
 		:class='`type-${type}`')
 
 		//- Close icon
-		button.bvm-close(aria-label='Close' @click='close' v-if='closeable')
-			.icon-close
+		button.bvm-close(aria-label='Close' @click='close' v-if='closeable' role='button')
+			.icon-close(aria-hidden='true')
 
 		//- The flex-centered contents
 		.bvm-contents(ref='scrollable')

@@ -156,10 +156,15 @@ var render = function() {
                         "button",
                         {
                           staticClass: "bvm-close",
-                          attrs: { "aria-label": "Close" },
+                          attrs: { "aria-label": "Close", role: "button" },
                           on: { click: _vm.close }
                         },
-                        [_c("div", { staticClass: "icon-close" })]
+                        [
+                          _c("div", {
+                            staticClass: "icon-close",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]
                       )
                     : _vm._e(),
                   _c(

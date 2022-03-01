@@ -13,6 +13,10 @@ section.simple-marquee.max-w-full: .max-w
 			div
 				h2 Modal Contents
 
+	h2 Options
+	pre
+		p Hello, this is pre text
+
 </template>
 
 <!-- ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
