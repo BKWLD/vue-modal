@@ -55,18 +55,41 @@ export default
 		lastFocusableElement: null
 
 	mounted: ->
+
+		# NUXT SPECIFIC: Add aria-hidden to the nuxt el
+		# reason: this is a sibling of the mounted component
+		# adding aria hidden whilst the modal is open allows
+		# ios voiceover to only read the contents of the modal
+		# when the modal is closed, we'll remove this hidden attr
+		# https://stackoverflow.com/questions/53561764/trap-focus-with-in-popup-modal-only-ios-voiceover
+		nuxt = document.querySelector('#__nuxt')
+		nuxt.setAttribute 'aria-hidden', 'true'
+
+		# disable the body scrolling
 		disableBodyScroll @$refs.scrollable
+
+		# establish a trap focus within the modal
 		setTimeout @setupTrapFocus, 0
 		
 	methods:
 
 		# Remove the modal
 		close: -> 
+
+			# remove the key press listener
 			document.removeEventListener 'keydown', @onKeyDown
+
+			# remove the scroll locks
 			clearAllBodyScrollLocks()
+
+			# NUXT SPECIFIC: remove aria hidden attribute
 			nuxt = document.querySelector('#__nuxt')
 			nuxt.removeAttribute 'aria-hidden', 'false'
+
+			# tell others about it's closing
 			@$emit('close')
+
+			# set open to false
 			@open = false
 
 		# Remove it after the transition ends
@@ -76,8 +99,6 @@ export default
 			@$el.remove()
 
 		setupTrapFocus: ->
-			nuxt = document.querySelector('#__nuxt')
-			nuxt.setAttribute 'aria-hidden', 'true'
 			@modal = @$refs.modal
 			@focusableElements = 'button, [href], input, [tabindex]:not([tabindex="-1"])'
 			@firstFocusableElement = @modal.querySelectorAll(@focusableElements)[0]
