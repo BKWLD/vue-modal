@@ -64,6 +64,8 @@ export default
 		close: -> 
 			document.removeEventListener 'keydown', @onKeyDown
 			clearAllBodyScrollLocks()
+			nuxt = document.querySelector('#__nuxt')
+			nuxt.removeAttribute 'aria-hidden', 'false'
 			@$emit('close')
 			@open = false
 
@@ -74,6 +76,8 @@ export default
 			@$el.remove()
 
 		setupTrapFocus: ->
+			nuxt = document.querySelector('#__nuxt')
+			nuxt.setAttribute 'aria-hidden', 'true'
 			@modal = @$refs.modal
 			@focusableElements = 'button, [href], input, [tabindex]:not([tabindex="-1"])'
 			@firstFocusableElement = @modal.querySelectorAll(@focusableElements)[0]

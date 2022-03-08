@@ -224,8 +224,11 @@ var external_body_scroll_lock_ = __webpack_require__(0);
   methods: {
     // Remove the modal
     close: function () {
+      var nuxt;
       document.removeEventListener('keydown', this.onKeyDown);
       Object(external_body_scroll_lock_["clearAllBodyScrollLocks"])();
+      nuxt = document.querySelector('#__nuxt');
+      nuxt.removeAttribute('aria-hidden', 'false');
       this.$emit('close');
       return this.open = false;
     },
@@ -239,6 +242,9 @@ var external_body_scroll_lock_ = __webpack_require__(0);
       return this.$el.remove();
     },
     setupTrapFocus: function () {
+      var nuxt;
+      nuxt = document.querySelector('#__nuxt');
+      nuxt.setAttribute('aria-hidden', 'true');
       this.modal = this.$refs.modal;
       this.focusableElements = 'button, [href], input, [tabindex]:not([tabindex="-1"])';
       this.firstFocusableElement = this.modal.querySelectorAll(this.focusableElements)[0];
