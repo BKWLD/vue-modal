@@ -99,7 +99,7 @@ export default
 				@setupTrapFocus
 			, 0
 
-		# Remove the modal
+		# Close the modal, clean up listeners
 		close: -> 
 
 			# remove the key press listener
@@ -108,21 +108,21 @@ export default
 			# remove the scroll locks
 			clearAllBodyScrollLocks()
 
-			# NUXT SPECIFIC: remove aria hidden attribute
+			# NUXT SPECIFIC: Remove aria-hidden attribute
 			nuxt = document.querySelector('#__nuxt')
 			nuxt.removeAttribute 'aria-hidden', 'false'
 
-			# tell others about it's closing
+			# Tell others about its closing
 			@$emit('close')
 
-			# set open to false
-			@open = false
+			# set isOpen to false
+			@isOpen = false
 
-		# Remove it after the transition ends
+		# Remove the modal after the transition ends
 		remove: ->
-			if !@removeOnClose then return
-			@$destroy()
+			return unless @removeOnClose
 			@$el.remove()
+			@$destroy()
 
 		setupTrapFocus: ->
 			@modal = @$refs.modal
@@ -131,7 +131,7 @@ export default
 			@focusableContent = @modal.querySelectorAll @focusableElements
 			@lastFocusableElement = @focusableContent[@focusableContent.length - 1]
 
-			# if fodus elements found, then add listener
+			# if focus elements found, then add listener
 			# and focus the first one
 			if @focusableContent.length
 				document.addEventListener 'keydown', @onKeyDown
