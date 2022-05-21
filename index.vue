@@ -35,10 +35,12 @@ export default
 
 	props:
 		
+		# Add .type-* class for styling
 		type:
 			type: String
 			default: 'compact'
 		
+		# Click outside the modal to close it
 		closeable:
 			type: Boolean
 			default: true
@@ -46,6 +48,8 @@ export default
 		# Destroy this component when the modal closes
 		removeOnClose:
 			type: Boolean
+			default: true
+
 		# Whether the modal is open by default
 		openOnMount:
 			type: Boolean
