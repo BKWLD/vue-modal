@@ -13,13 +13,13 @@
 
 		//- Close icon
 		button.bvm-close(aria-label='Close' @click='close' v-if='closeable' role='button')
-			.icon-close(aria-hidden='true')
+			slot(name='close-button'): .icon-close(aria-hidden='true')
 
 		//- The flex-centered contents
 		.bvm-contents(ref='scrollable')
 
-			//- Slotted in content
-			slot
+			//- Slotted content.  Pass the open and close methods.
+			slot(:open='open' :close='close')
 
 </template>
 
