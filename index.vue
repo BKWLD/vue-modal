@@ -1,15 +1,14 @@
 <template lang='pug'>
 
-//- Don't need aria hidden because this is a mount on body
 .bvm-modal(ref='modal' tabindex='-1' role='dialog' id='modal' aria-modal='true')
 
 	//- Backdrop
-	transition(name='fade' appear): .bvm-background(v-if='open')
-	.bvm-background-hitbox(v-if='closeable' @click='close')
+	transition(:name='bkgTransition' appear): .bvm-background(v-if='isOpen')
+	.bvm-background-hitbox(v-if='isOpen && closeable' @click='close')
 
 	//- Container of the slotted contnet
-	transition(appear @after-leave='remove'): .bvm-slot(
-		v-if='open'
+	transition(:name='transition' appear @after-leave='remove'): .bvm-slot(
+		v-if='isOpen'
 		:class='`type-${type}`')
 
 		//- Close icon
@@ -46,10 +45,21 @@ export default
 		
 		removeOnClose:
 			type: Boolean
-			default: false
+		# Whether the modal is open by default
+		openOnMount:
+			type: Boolean
+			default: true
+
+		transition:
+			type: String
+			default: 'slide-up'
+
+		bkgTransition:
+			type: String
+			default: 'fade'
 
 	data: ->
-		open: true
+		isOpen: @openOnMount
 		focusableElements: null
 		focusableContent: null
 		lastFocusableElement: null
@@ -212,5 +222,43 @@ export default
 
 	// Slight hover
 	transition color .3s
+
+// Scope the built-in transitions to the modal so we don`t
+// override any project transitions
+.bvm-slot, .bvm-background
+
+	// "Slide Up" Transition
+	&.slide-up-enter-active
+		transition opacity .3s, transform 1.5s ease-out-quint
+	&.slide-up-enter
+		opacity 0
+		transform translateY(40px)
+	&.slide-up-leave-active
+		transition opacity .5s, transform .5s ease-in
+	&.slide-up-leave-to
+		opacity 0
+		transform scale(0.9) translateY(20px)
+
+	// "Scale" Transition
+	&.scale-enter-active
+		transition opacity .2s, transform .5s ease-out-circ
+	&.scale-enter
+		opacity 0
+		transform scale(0.9)
+	&.scale-leave-active
+		transition opacity .5s, transform .5s ease-in
+	&.scale-leave-to
+		opacity 0
+		transform scale(0.9)
+
+	// "Fade" Transition (opacity fade)
+	&.fade-enter-active, .fade-leave-active
+		transition opacity .2s
+
+	&.fade-enter-to, &.fade-leave // In state
+		opacity 1
+
+	&.fade-enter, &.fade-leave-to // Out state
+		opacity 0
 
 </style>
