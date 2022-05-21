@@ -27,7 +27,6 @@
 
 <script lang='coffee'>
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-# 
 
 export default
 
@@ -210,18 +209,6 @@ export default
 		width 100%
 		max-width 600px
 		text-align center
-
-	// Slide in and up
-	&.v-enter-active
-		transition opacity .3s, transform 1.5s ease-out-quint
-	&.v-enter
-		opacity 0
-		transform translateY(40px)
-	&.v-leave-active
-		transition opacity .5s, transform .5s ease-in
-	&.v-leave-to
-		opacity 0
-		transform scale(0.9)
 
 .bvm-contents
 	overflow auto
