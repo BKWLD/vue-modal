@@ -43,6 +43,7 @@ export default
 			type: Boolean
 			default: true
 		
+		# Destroy this component when the modal closes
 		removeOnClose:
 			type: Boolean
 		# Whether the modal is open by default
