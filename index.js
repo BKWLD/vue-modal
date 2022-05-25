@@ -186,6 +186,7 @@ var render = function () {
                       _vm._t("default", null, {
                         open: _vm.open,
                         close: _vm.close,
+                        isOpen: _vm.isOpen,
                       }),
                     ],
                     2

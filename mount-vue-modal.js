@@ -181,20 +181,19 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */,
-/* 1 */,
-/* 2 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports) {
 
 module.exports = __webpack_require__(0);
 
 /***/ }),
-/* 3 */,
-/* 4 */
+
+/***/ 5:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -202,7 +201,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mountOnBody", function() { return mountOnBody; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendMount", function() { return appendMount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mountInside", function() { return mountInside; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
  // Mount a component on the body, like a modal, and return the mounted component
 // instance. The "component" argument should be a Vue component instance, like
@@ -243,7 +242,8 @@ var mountInside = function (element, component, options = {}, append = true) {
 };
 
 /***/ })
-/******/ ]);
+
+/******/ });
 
 /***/ }),
 /* 4 */,

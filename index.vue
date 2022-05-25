@@ -18,8 +18,8 @@
 		//- The flex-centered contents
 		.bvm-contents(ref='scrollable')
 
-			//- Slotted content.  Pass the open and close methods.
-			slot(:open='open' :close='close')
+			//- Slotted content.  Pass the open and close methods, and isOpen boolean.
+			slot(:open='open' :close='close' :is-open='isOpen')
 
 </template>
 
