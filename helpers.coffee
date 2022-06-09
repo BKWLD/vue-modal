@@ -3,7 +3,7 @@ import Vue from 'vue'
 # Mount a component on the body, like a modal, and return the mounted component
 # instance. The "component" argument should be a Vue component instance, like
 # returned from importing a single file component.
-export mountOnBody = (component, options = {}) ->
+export default mountOnBody = (component, options = {}) ->
 	appendMount document.body, component, options
 
 export appendMount = (element, component, options = {}) ->

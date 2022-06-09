@@ -82,35 +82,36 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */
 /***/ (function(module, exports) {
 
 module.exports = require("vue");
 
 /***/ }),
-
-/***/ 5:
+/* 3 */,
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mountOnBody", function() { return mountOnBody; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appendMount", function() { return appendMount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mountInside", function() { return mountInside; });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+var mountOnBody;
  // Mount a component on the body, like a modal, and return the mounted component
 // instance. The "component" argument should be a Vue component instance, like
 // returned from importing a single file component.
 
-var mountOnBody = function (component, options = {}) {
+/* harmony default export */ __webpack_exports__["default"] = (mountOnBody = function (component, options = {}) {
   return appendMount(document.body, component, options);
-};
+});
 var appendMount = function (element, component, options = {}) {
   return mountInside(element, component, options, true);
 }; // Mount a component within an element
@@ -143,5 +144,4 @@ var mountInside = function (element, component, options = {}, append = true) {
 };
 
 /***/ })
-
-/******/ });
+/******/ ]);
