@@ -37,45 +37,13 @@ import WelcomeModal from './welcome-modal.vue'
 @welcomeModalRef = await mountOnBody WelcomeModal, propsData: modalTitle: "Hello world"
 ```
 
-## VueModal Component
-
-Make your own Modal component, using VueModal to wrap your modal contents.  
-
-Example with all options:
-
-```pug
-vue-modal.welcome-modal(
-	
-	//- Ref so you can call component methods (open, close, destroy)
-	ref='modal'
-	
-	//- Props
-	:closeable='true'
-	:open-on-mount='true'
-	:remove-on-close='true'
-	transition='slide-up'
-	type='compact'
-	
-	//- Events
-	@open='onOpen'
-	@close='onClose'
-	@after-leave='afterLeave'
-	@destroyed='destroyed')
-
-	//- Default slot
-	//- Slot props: open (function), close (function), isOpen (boolean)
-	template(#default='{ open, close, isOpen }')
-		
-		h2 This modal is {{ isOpen ? 'open' : 'closed' }}
-		
-		button(@click='close') Close modal
-```
-
 ## Usage (Open on mount, remove on close)
 
-This is the default and easiest way:
-* To show your modal, call mountOnBody() to mount and immediately show your modal.  
-* When your modal is closed, listen for the "destroyed" event and destroy your modal.
+This is the default behavior. 
+
+How it works:
+* When you're ready to show your modal, call mountOnBody() to mount and immediately show your modal.  
+* When your modal is closed, listen for the "destroyed" event and destroy your modal.  
 
 welcome-modal.vue
 ```pug
@@ -113,7 +81,7 @@ export default
 
 In some cases, maybe you'll want to mount the modal immediately when your app mounts, but not open it until later, and not destroy it when it's closed.  
 
-To do this:
+How it works:
 * Set VueModal's openOnMount and removeOnClose to false
 * Call mountOnBody immediately, saving the returned the modal ref.
 * When you're ready to show and hide the modal, call the ref's open and close methods.
@@ -152,6 +120,36 @@ export default
 		@welcomeModalRef = await mountOnBody WelcomeModal, propsData: modalTitle: @modalTitle
 	methods:
 		openModal: -> @welcomeModalRef.open()
+```
+
+## Usage (with all options)
+
+```pug
+vue-modal.welcome-modal(
+	
+	//- Ref so you can call component methods (open, close, destroy)
+	ref='modal'
+	
+	//- Props
+	:closeable='true'
+	:open-on-mount='true'
+	:remove-on-close='true'
+	transition='slide-up'
+	type='compact'
+	
+	//- Events
+	@open='onOpen'
+	@close='onClose'
+	@after-leave='afterLeave'
+	@destroyed='destroyed')
+
+	//- Default slot
+	//- Slot props: open (function), close (function), isOpen (boolean)
+	template(#default='{ open, close, isOpen }')
+		
+		h2 This modal is {{ isOpen ? 'open' : 'closed' }}
+		
+		button(@click='close') Close modal
 ```
 
 ## To-Do
