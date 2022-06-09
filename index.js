@@ -82,37 +82,35 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */
+/* 0 */
 /***/ (function(module, exports) {
 
 module.exports = require("body-scroll-lock");
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
 /***/ }),
-/* 3 */,
-/* 4 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_mini_css_extract_plugin_dist_loader_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_stylus_loader_index_js_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_lang_stylus___WEBPACK_IMPORTED_MODULE_0__);
 /* unused harmony reexport * */
 
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */
+/* 4 */,
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124,81 +122,85 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      ref: "modal",
-      staticClass: "bvm-modal",
-      attrs: {
-        tabindex: "-1",
-        role: "dialog",
-        id: "modal",
-        "aria-modal": "true",
-      },
-    },
-    [
-      _c("transition", { attrs: { name: _vm.bkgTransition, appear: "" } }, [
-        _vm.isOpen ? _c("div", { staticClass: "bvm-background" }) : _vm._e(),
-      ]),
-      _vm.isOpen && _vm.closeable
-        ? _c("div", {
-            staticClass: "bvm-background-hitbox",
-            on: { click: _vm.close },
-          })
-        : _vm._e(),
-      _c(
-        "transition",
+  return _vm.isOpenOrAnimating
+    ? _c(
+        "div",
         {
-          attrs: { name: _vm.transition, appear: "" },
-          on: { "after-leave": _vm.remove },
+          ref: "modal",
+          staticClass: "bvm-modal",
+          attrs: {
+            tabindex: "-1",
+            role: "dialog",
+            id: "modal",
+            "aria-modal": "true",
+          },
         },
         [
-          _vm.isOpen
-            ? _c(
-                "div",
-                { staticClass: "bvm-slot", class: "type-" + _vm.type },
-                [
-                  _vm.closeable
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "bvm-close",
-                          attrs: { "aria-label": "Close", role: "button" },
-                          on: { click: _vm.close },
-                        },
-                        [
-                          _vm._t("close-button", function () {
-                            return [
-                              _c("div", {
-                                staticClass: "icon-close",
-                                attrs: { "aria-hidden": "true" },
+          _c("transition", { attrs: { name: _vm.bkgTransition, appear: "" } }, [
+            _vm.isOpen
+              ? _c("div", { staticClass: "bvm-background" })
+              : _vm._e(),
+          ]),
+          _vm.isOpen && _vm.closeable
+            ? _c("div", {
+                staticClass: "bvm-background-hitbox",
+                on: { click: _vm.close },
+              })
+            : _vm._e(),
+          _c(
+            "transition",
+            {
+              attrs: { name: _vm.transition, appear: "" },
+              on: { "after-leave": _vm.afterLeave },
+            },
+            [
+              _vm.isOpen
+                ? _c(
+                    "div",
+                    { staticClass: "bvm-slot", class: "type-" + _vm.type },
+                    [
+                      _vm.closeable
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "bvm-close",
+                              attrs: { "aria-label": "Close", role: "button" },
+                              on: { click: _vm.close },
+                            },
+                            [
+                              _vm._t("close-button", function () {
+                                return [
+                                  _c("div", {
+                                    staticClass: "icon-close",
+                                    attrs: { "aria-hidden": "true" },
+                                  }),
+                                ]
                               }),
-                            ]
+                            ],
+                            2
+                          )
+                        : _vm._e(),
+                      _c(
+                        "div",
+                        { ref: "scrollable", staticClass: "bvm-contents" },
+                        [
+                          _vm._t("default", null, {
+                            open: _vm.open,
+                            close: _vm.close,
+                            isOpen: _vm.isOpen,
                           }),
                         ],
                         2
-                      )
-                    : _vm._e(),
-                  _c(
-                    "div",
-                    { ref: "scrollable", staticClass: "bvm-contents" },
-                    [
-                      _vm._t("default", null, {
-                        open: _vm.open,
-                        close: _vm.close,
-                        isOpen: _vm.isOpen,
-                      }),
-                    ],
-                    2
-                  ),
-                ]
-              )
-            : _vm._e(),
-        ]
-      ),
-    ],
-    1
-  )
+                      ),
+                    ]
+                  )
+                : _vm._e(),
+            ]
+          ),
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -207,7 +209,7 @@ render._withStripped = true
 // CONCATENATED MODULE: ./index.vue?vue&type=template&id=6de5ab34&lang=pug&
 
 // EXTERNAL MODULE: external "body-scroll-lock"
-var external_body_scroll_lock_ = __webpack_require__(1);
+var external_body_scroll_lock_ = __webpack_require__(0);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib!./node_modules/coffee-loader!./node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=coffee&
 
@@ -224,13 +226,13 @@ var external_body_scroll_lock_ = __webpack_require__(1);
       type: Boolean,
       default: true
     },
-    // Destroy this component when the modal closes
-    removeOnClose: {
+    // Whether the modal is open by default
+    openOnMount: {
       type: Boolean,
       default: true
     },
-    // Whether the modal is open by default
-    openOnMount: {
+    // Destroy this component when the modal closes
+    removeOnClose: {
       type: Boolean,
       default: true
     },
@@ -246,6 +248,8 @@ var external_body_scroll_lock_ = __webpack_require__(1);
   data: function () {
     return {
       isOpen: this.openOnMount,
+      // Separate boolean. True when isOpen==true, when animating open, and animating closed.
+      isOpenOrAnimating: this.openOnMount,
       focusableElements: null,
       focusableContent: null,
       lastFocusableElement: null
@@ -270,7 +274,8 @@ var external_body_scroll_lock_ = __webpack_require__(1);
       nuxt.setAttribute('aria-hidden', 'true'); // Tell others about its opening
 
       this.$emit('open');
-      this.isOpen = true; // Wait a tick before doing things that require refs
+      this.isOpen = true;
+      this.isOpenOrAnimating = true; // Wait a tick before doing things that require refs
 
       return setTimeout(() => {
         // Disable body scroll
@@ -294,11 +299,20 @@ var external_body_scroll_lock_ = __webpack_require__(1);
 
       return this.isOpen = false;
     },
-    // Remove the modal after the transition ends
-    remove: function () {
+    // Called after the close transition ends
+    afterLeave: function () {
+      this.isOpenOrAnimating = false;
+      this.$emit('afterLeave');
+
       if (!this.removeOnClose) {
         return;
       }
+
+      return this.destroy();
+    },
+    destroy: function () {
+      // Emit event so the parent component can do cleanup
+      this.$emit('destroyed'); // Remove the element and destroy the component
 
       this.$el.remove();
       return this.$destroy();
@@ -341,7 +355,7 @@ var external_body_scroll_lock_ = __webpack_require__(1);
 // CONCATENATED MODULE: ./index.vue?vue&type=script&lang=coffee&
  /* harmony default export */ var indexvue_type_script_lang_coffee_ = (lib_vue_loader_options_indexvue_type_script_lang_coffee_); 
 // EXTERNAL MODULE: ./index.vue?vue&type=style&index=0&lang=stylus&
-var indexvue_type_style_index_0_lang_stylus_ = __webpack_require__(4);
+var indexvue_type_style_index_0_lang_stylus_ = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
