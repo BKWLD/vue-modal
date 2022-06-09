@@ -5,22 +5,22 @@ A component that renders a modal window with slotted content. Includes trapped t
 ## Props
 
 * `closable`: prevent the user from closing the modal (like for an age gate)
-* `type`: Adds a `.type-*` class to `.bvm-slot` for styling the modal.  Default is "standard", which is a generic modal.  See `index.vue` for included styles.
-* `removeOnClose`: Default is true.  If true, VueModal will destroy itself when closed.  If false, it animates out and renders nothing, and can be destroyed by calling its `destroy` method.
-* `openOnMount`: Default is true.  If true, VueModal will animate open when mounted.  If false, it mounts but renders nothing, and must be opened by calling its `open` method.
+* `type`: Adds a `.type-*` class to `.bvm-slot` for styling the modal.  See index.vue for included styles.  Default is "standard", which is a generic modal.
+* `removeOnClose`: If true, VueModal will destroy itself when closed.  If false, it animates out and renders nothing, and can be destroyed by calling its destroy() method.  Default is true.  
+* `openOnMount`: If true, VueModal will animate open when mounted.  If false, it mounts but renders nothing, and must be opened by calling its open() method.  Default is true.  
 * `transition`: (string) Name of the transition on the `.bvm-slot` element.  Default is "slide-up".
 * `bkgTransition`: (string) Name of the transition on the `.bvm-background` element.  Default is "fade".
 
 ## Events
 
 * `open`: Emitted when the modal opens (at the transition start)
-* `close`: When the modal closes (at the transition start)
-* `afterLeave`: When the modal close transition has finished
-* `destroyed`: Emitted right before the modal destroys itself (when `removeOnClose` is true)
+* `close`: Emitted when the modal closes (at the transition start)
+* `afterLeave`: Emitted when the modal's close transition has finished
+* `destroyed`: Emitted right before the modal destroys itself
 
 ## MountOnBody Function
 
-Use this function to add VueModal to the page. 
+You'll use this function to add your modal to the page.
 
 MountOnBody is an async function that:
 * Mounts a component appended to the end of the document body
@@ -46,8 +46,7 @@ Example with all options:
 ```pug
 vue-modal.welcome-modal(
 	
-	//- Ref so you can call component methods:
-	//- open, close, destroy
+	//- Ref so you can call component methods (open, close, destroy)
 	ref='modal'
 	
 	//- Props
@@ -72,7 +71,11 @@ vue-modal.welcome-modal(
 		button(@click='close') Close modal
 ```
 
-## Usage (Open on mount)
+## Usage (Open on mount, remove on close)
+
+This is the default and easiest way:
+* To show your modal, call mountOnBody() to mount and immediately show your modal.  
+* When your modal is closed, listen for the "destroyed" event and destroy your modal.
 
 welcome-modal.vue
 ```pug
@@ -88,6 +91,7 @@ export default
 	components: { VueModal }
 	props: modalTitle: String
 	methods: 
+		# Destroy WelcomeModal when VueModal is destroyed
 		destroyed: -> @$destroy()
 ```
 
@@ -106,6 +110,13 @@ export default
 
 
 ## Usage (Don't open on mount, don't remove on close)
+
+In some cases, maybe you'll want to mount the modal immediately when your app mounts, but not open it until later, and not destroy it when it's closed.  
+
+To do this:
+* Set VueModal's openOnMount and removeOnClose to false
+* Call mountOnBody immediately, saving the returned the modal ref.
+* When you're ready to show and hide the modal, call the ref's open and close methods.
 
 welcome-modal.vue
 ```pug
@@ -130,8 +141,8 @@ export default
 
 home.vue
 ```pug
-	h2 Homepage
-	button(@click='openModal') Open modal
+h2 Homepage
+button(@click='openModal') Open modal
 ```
 ```coffee
 import mountOnBody from '@bkwld/vue-modal/helpers'
