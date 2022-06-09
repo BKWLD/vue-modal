@@ -126,7 +126,7 @@ export default
 
 welcome-modal.vue
 ```pug
-vue-modal.welcome-modal(
+vue-modal(
 	
 	//- Ref so you can call component methods (open, close, destroy)
 	ref='modal'
