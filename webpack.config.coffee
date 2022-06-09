@@ -13,7 +13,6 @@ module.exports = (env, argv) ->
 	entry: 
 		index: './index.vue'
 		helpers: './helpers.coffee'
-		'mount-vue-modal': './mount-vue-modal.coffee'
 
 	resolve: extensions: ['.js', '.coffee', '.vue']
 
