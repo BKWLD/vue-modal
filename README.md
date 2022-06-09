@@ -122,8 +122,9 @@ export default
 		openModal: -> @welcomeModalRef.open()
 ```
 
-## Usage (with all options)
+## Usage with all options
 
+welcome-modal.vue
 ```pug
 vue-modal.welcome-modal(
 	
