@@ -10,7 +10,9 @@ module.exports = (env, argv) ->
 	mode: 'production'
 	optimization: minimize: false
 
-	entry: index: './index.vue'
+	entry: 
+		index: './index.vue'
+		helpers: './helpers.coffee'
 
 	resolve: extensions: ['.js', '.coffee', '.vue']
 

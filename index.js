@@ -82,7 +82,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -98,7 +98,8 @@ module.exports = require("body-scroll-lock");
 // extracted by mini-css-extract-plugin
 
 /***/ }),
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -108,7 +109,8 @@ module.exports = require("body-scroll-lock");
 
 
 /***/ }),
-/* 3 */
+/* 4 */,
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -116,71 +118,89 @@ module.exports = require("body-scroll-lock");
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/pug-plain-loader!./node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=6de5ab34&lang=pug&
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      ref: "modal",
-      staticClass: "bvm-modal",
-      attrs: {
-        tabindex: "-1",
-        role: "dialog",
-        id: "modal",
-        "aria-modal": "true"
-      }
-    },
-    [
-      _c("transition", { attrs: { name: "fade", appear: "" } }, [
-        _vm.open ? _c("div", { staticClass: "bvm-background" }) : _vm._e()
-      ]),
-      _vm.closeable
-        ? _c("div", {
-            staticClass: "bvm-background-hitbox",
-            on: { click: _vm.close }
-          })
-        : _vm._e(),
-      _c(
-        "transition",
-        { attrs: { appear: "" }, on: { "after-leave": _vm.remove } },
+  return _vm.isOpenOrAnimating
+    ? _c(
+        "div",
+        {
+          ref: "modal",
+          staticClass: "bvm-modal",
+          attrs: {
+            tabindex: "-1",
+            role: "dialog",
+            id: "modal",
+            "aria-modal": "true",
+          },
+        },
         [
-          _vm.open
-            ? _c(
-                "div",
-                { staticClass: "bvm-slot", class: "type-" + _vm.type },
-                [
-                  _vm.closeable
-                    ? _c(
-                        "button",
-                        {
-                          staticClass: "bvm-close",
-                          attrs: { "aria-label": "Close", role: "button" },
-                          on: { click: _vm.close }
-                        },
-                        [
-                          _c("div", {
-                            staticClass: "icon-close",
-                            attrs: { "aria-hidden": "true" }
-                          })
-                        ]
-                      )
-                    : _vm._e(),
-                  _c(
+          _c("transition", { attrs: { name: _vm.bkgTransition, appear: "" } }, [
+            _vm.isOpen
+              ? _c("div", { staticClass: "bvm-background" })
+              : _vm._e(),
+          ]),
+          _vm.isOpen && _vm.closeable
+            ? _c("div", {
+                staticClass: "bvm-background-hitbox",
+                on: { click: _vm.close },
+              })
+            : _vm._e(),
+          _c(
+            "transition",
+            {
+              attrs: { name: _vm.transition, appear: "" },
+              on: { "after-leave": _vm.afterLeave },
+            },
+            [
+              _vm.isOpen
+                ? _c(
                     "div",
-                    { ref: "scrollable", staticClass: "bvm-contents" },
-                    [_vm._t("default")],
-                    2
+                    { staticClass: "bvm-slot", class: "type-" + _vm.type },
+                    [
+                      _vm.closeable
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "bvm-close",
+                              attrs: { "aria-label": "Close", role: "button" },
+                              on: { click: _vm.close },
+                            },
+                            [
+                              _vm._t("close-button", function () {
+                                return [
+                                  _c("div", {
+                                    staticClass: "icon-close",
+                                    attrs: { "aria-hidden": "true" },
+                                  }),
+                                ]
+                              }),
+                            ],
+                            2
+                          )
+                        : _vm._e(),
+                      _c(
+                        "div",
+                        { ref: "scrollable", staticClass: "bvm-contents" },
+                        [
+                          _vm._t("default", null, {
+                            open: _vm.open,
+                            close: _vm.close,
+                            isOpen: _vm.isOpen,
+                          }),
+                        ],
+                        2
+                      ),
+                    ]
                   )
-                ]
-              )
-            : _vm._e()
-        ]
+                : _vm._e(),
+            ]
+          ),
+        ],
+        1
       )
-    ],
-    1
-  )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -196,60 +216,113 @@ var external_body_scroll_lock_ = __webpack_require__(0);
 /* harmony default export */ var lib_vue_loader_options_indexvue_type_script_lang_coffee_ = ({
   name: 'VueModal',
   props: {
+    // Add .type-* class for styling
     type: {
       type: String,
       default: 'compact'
     },
+    // Click outside the modal to close it
     closeable: {
       type: Boolean,
       default: true
     },
+    // Whether the modal is open by default
+    openOnMount: {
+      type: Boolean,
+      default: true
+    },
+    // Destroy this component when the modal closes
     removeOnClose: {
       type: Boolean,
-      default: false
+      default: true
+    },
+    transition: {
+      type: String,
+      default: 'slide-up'
+    },
+    bkgTransition: {
+      type: String,
+      default: 'fade'
     }
   },
   data: function () {
     return {
-      open: true,
+      isOpen: this.openOnMount,
+      // Separate boolean. True when isOpen==true, when animating open, and animating closed.
+      isOpenOrAnimating: this.openOnMount,
       focusableElements: null,
       focusableContent: null,
       lastFocusableElement: null
     };
   },
   mounted: function () {
-    Object(external_body_scroll_lock_["disableBodyScroll"])(this.$refs.scrollable);
-    return setTimeout(this.setupTrapFocus, 0);
+    if (this.openOnMount) {
+      return this.open();
+    }
   },
   methods: {
-    // Remove the modal
-    close: function () {
-      var nuxt;
-      document.removeEventListener('keydown', this.onKeyDown);
-      Object(external_body_scroll_lock_["clearAllBodyScrollLocks"])();
+    // Open the modal, setup listeners
+    open: function () {
+      var nuxt; // NUXT SPECIFIC: Add aria-hidden to the nuxt element.
+      // This is a sibling of the mounted component.
+      // Adding aria-hidden whilst the modal is open allows
+      // ios voiceover to only read the contents of the modal.
+      // When the modal is closed, we'll remove this hidden attr.
+      // https://stackoverflow.com/questions/53561764/trap-focus-with-in-popup-modal-only-ios-voiceover
+
       nuxt = document.querySelector('#__nuxt');
-      nuxt.removeAttribute('aria-hidden', 'false');
-      this.$emit('close');
-      return this.open = false;
+      nuxt.setAttribute('aria-hidden', 'true'); // Tell others about its opening
+
+      this.$emit('open');
+      this.isOpen = true;
+      this.isOpenOrAnimating = true; // Wait a tick before doing things that require refs
+
+      return setTimeout(() => {
+        // Disable body scroll
+        Object(external_body_scroll_lock_["disableBodyScroll"])(this.$refs.scrollable); // Establish a trap focus within the modal
+
+        return this.setupTrapFocus;
+      }, 0);
     },
-    // Remove it after the transition ends
-    remove: function () {
+    // Close the modal, clean up listeners
+    close: function () {
+      var nuxt; // remove the key press listener
+
+      document.removeEventListener('keydown', this.onKeyDown); // remove the scroll locks
+
+      Object(external_body_scroll_lock_["clearAllBodyScrollLocks"])(); // NUXT SPECIFIC: Remove aria-hidden attribute
+
+      nuxt = document.querySelector('#__nuxt');
+      nuxt.removeAttribute('aria-hidden', 'false'); // Tell others about its closing
+
+      this.$emit('close'); // set isOpen to false
+
+      return this.isOpen = false;
+    },
+    // Called after the close transition ends
+    afterLeave: function () {
+      this.isOpenOrAnimating = false;
+      this.$emit('afterLeave');
+
       if (!this.removeOnClose) {
         return;
       }
 
-      this.$destroy();
-      return this.$el.remove();
+      return this.destroy();
+    },
+    destroy: function () {
+      // Emit event so the parent component can do cleanup
+      this.$emit('destroyed'); // Remove the element and destroy the component
+
+      this.$el.remove();
+      return this.$destroy();
     },
     setupTrapFocus: function () {
-      var nuxt;
-      nuxt = document.querySelector('#__nuxt');
-      nuxt.setAttribute('aria-hidden', 'true');
       this.modal = this.$refs.modal;
       this.focusableElements = 'button, [href], input, [tabindex]:not([tabindex="-1"])';
       this.firstFocusableElement = this.modal.querySelectorAll(this.focusableElements)[0];
       this.focusableContent = this.modal.querySelectorAll(this.focusableElements);
-      this.lastFocusableElement = this.focusableContent[this.focusableContent.length - 1]; // if fodus elements found, then add listener
+      this.lastFocusableElement = this.focusableContent[this.focusableContent.length - 1]; // if focus elements found, then add listener
       // and focus the first one
 
       if (this.focusableContent.length) {
@@ -282,7 +355,7 @@ var external_body_scroll_lock_ = __webpack_require__(0);
 // CONCATENATED MODULE: ./index.vue?vue&type=script&lang=coffee&
  /* harmony default export */ var indexvue_type_script_lang_coffee_ = (lib_vue_loader_options_indexvue_type_script_lang_coffee_); 
 // EXTERNAL MODULE: ./index.vue?vue&type=style&index=0&lang=stylus&
-var indexvue_type_style_index_0_lang_stylus_ = __webpack_require__(2);
+var indexvue_type_style_index_0_lang_stylus_ = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */

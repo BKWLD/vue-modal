@@ -1,26 +1,25 @@
 <template lang='pug'>
 
-//- Don't need aria hidden because this is a mount on body
-.bvm-modal(ref='modal' tabindex='-1' role='dialog' id='modal' aria-modal='true')
+.bvm-modal(ref='modal' tabindex='-1' role='dialog' id='modal' aria-modal='true' v-if='isOpenOrAnimating')
 
 	//- Backdrop
-	transition(name='fade' appear): .bvm-background(v-if='open')
-	.bvm-background-hitbox(v-if='closeable' @click='close')
+	transition(:name='bkgTransition' appear): .bvm-background(v-if='isOpen')
+	.bvm-background-hitbox(v-if='isOpen && closeable' @click='close')
 
 	//- Container of the slotted contnet
-	transition(appear @after-leave='remove'): .bvm-slot(
-		v-if='open'
+	transition(:name='transition' appear @after-leave='afterLeave'): .bvm-slot(
+		v-if='isOpen'
 		:class='`type-${type}`')
 
 		//- Close icon
 		button.bvm-close(aria-label='Close' @click='close' v-if='closeable' role='button')
-			.icon-close(aria-hidden='true')
+			slot(name='close-button'): .icon-close(aria-hidden='true')
 
 		//- The flex-centered contents
 		.bvm-contents(ref='scrollable')
 
-			//- Slotted in content
-			slot
+			//- Slotted content.  Pass the open and close methods, and isOpen boolean.
+			slot(:open='open' :close='close' :is-open='isOpen')
 
 </template>
 
@@ -28,7 +27,6 @@
 
 <script lang='coffee'>
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-# 
 
 export default
 
@@ -36,67 +34,103 @@ export default
 
 	props:
 		
+		# Add .type-* class for styling
 		type:
 			type: String
 			default: 'compact'
 		
+		# Click outside the modal to close it
 		closeable:
 			type: Boolean
 			default: true
 		
+		# Whether the modal is open by default
+		openOnMount:
+			type: Boolean
+			default: true
+
+		# Destroy this component when the modal closes
 		removeOnClose:
 			type: Boolean
-			default: false
+			default: true
+
+		transition:
+			type: String
+			default: 'slide-up'
+
+		bkgTransition:
+			type: String
+			default: 'fade'
 
 	data: ->
-		open: true
+		isOpen: @openOnMount
+		# Separate boolean. True when isOpen==true, when animating open, and animating closed.
+		isOpenOrAnimating: @openOnMount
 		focusableElements: null
 		focusableContent: null
 		lastFocusableElement: null
 
-	mounted: ->
-
-		# NUXT SPECIFIC: Add aria-hidden to the nuxt el
-		# reason: this is a sibling of the mounted component
-		# adding aria hidden whilst the modal is open allows
-		# ios voiceover to only read the contents of the modal
-		# when the modal is closed, we'll remove this hidden attr
-		# https://stackoverflow.com/questions/53561764/trap-focus-with-in-popup-modal-only-ios-voiceover
-		nuxt = document.querySelector('#__nuxt')
-		nuxt.setAttribute 'aria-hidden', 'true'
-
-		# disable the body scrolling
-		disableBodyScroll @$refs.scrollable
-
-		# establish a trap focus within the modal
-		setTimeout @setupTrapFocus, 0
+	mounted: -> @open() if @openOnMount
 		
 	methods:
 
-		# Remove the modal
-		close: -> 
+		# Open the modal, setup listeners
+		open: ->
+			# NUXT SPECIFIC: Add aria-hidden to the nuxt element.
+			# This is a sibling of the mounted component.
+			# Adding aria-hidden whilst the modal is open allows
+			# ios voiceover to only read the contents of the modal.
+			# When the modal is closed, we'll remove this hidden attr.
+			# https://stackoverflow.com/questions/53561764/trap-focus-with-in-popup-modal-only-ios-voiceover
+			nuxt = document.querySelector('#__nuxt')
+			nuxt.setAttribute 'aria-hidden', 'true'
 
+			# Tell others about its opening
+			@$emit('open')
+
+			@isOpen = true
+			@isOpenOrAnimating = true
+
+			# Wait a tick before doing things that require refs
+			setTimeout =>
+				# Disable body scroll
+				disableBodyScroll @$refs.scrollable
+
+				# Establish a trap focus within the modal
+				@setupTrapFocus
+			, 0
+
+		# Close the modal, clean up listeners
+		close: -> 
 			# remove the key press listener
 			document.removeEventListener 'keydown', @onKeyDown
 
 			# remove the scroll locks
 			clearAllBodyScrollLocks()
 
-			# NUXT SPECIFIC: remove aria hidden attribute
+			# NUXT SPECIFIC: Remove aria-hidden attribute
 			nuxt = document.querySelector('#__nuxt')
 			nuxt.removeAttribute 'aria-hidden', 'false'
 
-			# tell others about it's closing
+			# Tell others about its closing
 			@$emit('close')
 
-			# set open to false
-			@open = false
+			# set isOpen to false
+			@isOpen = false
 
-		# Remove it after the transition ends
-		remove: ->
-			if !@removeOnClose then return
-			@$destroy()
+		# Called after the close transition ends
+		afterLeave: ->
+			@isOpenOrAnimating = false
+			@$emit('afterLeave')
+			return unless @removeOnClose
+			@destroy()
+
+		destroy: ->
+			# Emit event so the parent component can do cleanup
+			@$emit('destroyed')
+			# Remove the element and destroy the component
 			@$el.remove()
+			@$destroy()
 
 		setupTrapFocus: ->
 			@modal = @$refs.modal
@@ -105,7 +139,7 @@ export default
 			@focusableContent = @modal.querySelectorAll @focusableElements
 			@lastFocusableElement = @focusableContent[@focusableContent.length - 1]
 
-			# if fodus elements found, then add listener
+			# if focus elements found, then add listener
 			# and focus the first one
 			if @focusableContent.length
 				document.addEventListener 'keydown', @onKeyDown
@@ -185,18 +219,6 @@ export default
 		max-width 600px
 		text-align center
 
-	// Slide in and up
-	&.v-enter-active
-		transition opacity .3s, transform 1.5s ease-out-quint
-	&.v-enter
-		opacity 0
-		transform translateY(40px)
-	&.v-leave-active
-		transition opacity .5s, transform .5s ease-in
-	&.v-leave-to
-		opacity 0
-		transform scale(0.9)
-
 .bvm-contents
 	overflow auto
 
@@ -212,5 +234,43 @@ export default
 
 	// Slight hover
 	transition color .3s
+
+// Scope the built-in transitions to the modal so we don`t
+// override any project transitions
+.bvm-slot, .bvm-background
+
+	// "Slide Up" Transition
+	&.slide-up-enter-active
+		transition opacity .3s, transform 1.5s ease-out-quint
+	&.slide-up-enter
+		opacity 0
+		transform translateY(40px)
+	&.slide-up-leave-active
+		transition opacity .5s, transform .5s ease-in
+	&.slide-up-leave-to
+		opacity 0
+		transform scale(0.9) translateY(20px)
+
+	// "Scale" Transition
+	&.scale-enter-active
+		transition opacity .2s, transform .5s ease-out-circ
+	&.scale-enter
+		opacity 0
+		transform scale(0.9)
+	&.scale-leave-active
+		transition opacity .5s, transform .5s ease-in
+	&.scale-leave-to
+		opacity 0
+		transform scale(0.9)
+
+	// "Fade" Transition (opacity fade)
+	&.fade-enter-active, .fade-leave-active
+		transition opacity .2s
+
+	&.fade-enter-to, &.fade-leave // In state
+		opacity 1
+
+	&.fade-enter, &.fade-leave-to // Out state
+		opacity 0
 
 </style>
